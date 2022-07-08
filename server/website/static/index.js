@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas")
 const resetBt = document.getElementById("reset")
 let pixels = document.querySelectorAll(".pixel")
+let root = document.documentElement;
 let isDrawing = false
 let pixelArray = []
 let socket;
@@ -20,6 +21,22 @@ function connectSock() {
     socket.onopen = s => {
         console.log("Ready ✨")
     }
+    socket.onmessage = m => {
+        try {
+            let predictions = JSON.parse(m.data)
+            let maxValue = Math.max(...predictions)
+            for (let i = 0; i < predictions.length; i++) {
+                let percentage = (predictions[i] / maxValue) * 100
+                root.style.setProperty(`--value-${i}`, `${percentage}%`);
+            }
+        }
+        catch (err) {
+            let predictions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            pixelArray = [];
+            console.log(`Incorrect prediction format ⛔\n${err}`)
+        }
+    }
+    socket.onerror = e => { console.log(`Socket Error Occured ⛔\n${e}`); connectSock() }
 }
 
 function draw() {
@@ -28,11 +45,15 @@ function draw() {
     pixels.forEach((pixel, index) => {
         if (pixel.style.backgroundColor === "white") {
             pixelArray[index] = 1
+            pixelArray[index - 28] = 0.5
+            pixelArray[index + 28] = 0.5
+            pixelArray[index + 1] = 0.5
+            pixelArray[index - 1] = 0.5
         } else {
             pixelArray[index] = 0
         }
     })
-    socket.send(pixelArray)
+    if (Math.floor(Math.random() + Math.random())) { socket.send(pixelArray) }
 }
 
 function initFunctions() {

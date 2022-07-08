@@ -5,13 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MNIST</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"> -->
 </head>
 
 <body>
-    <div id="buttons"><button id="reset">Reset</button></div>
-    <div id="canvas" draggable="false"></div>
-    <script src="{{url_for('static', filename='index.js')}}"></script>
+    <div class="container">
+        <div class="interface">
+            <div class="graph">
+                <div class="number_wrapper num_0">
+                    <div class="num_value nv_0"></div>
+                    <div class="num_digit nd_0">0</div>
+                </div>
+                <div class="number_wrapper num_1">
+                    <div class="num_value nv_1"></div>
+                    <div class="num_digit nd_1">1</div>
+                </div>
+                <div class="number_wrapper num_2">
+                    <div class="num_value nv_2"></div>
+                    <div class="num_digit nd_2">2</div>
+                </div>
+                <div class="number_wrapper num_3">
+                    <div class="num_value nv_3"></div>
+                    <div class="num_digit nd_3">3</div>
+                </div>
+                <div class="number_wrapper num_4">
+                    <div class="num_value nv_4"></div>
+                    <div class="num_digit nd_4">4</div>
+                </div>
+                <div class="number_wrapper num_5">
+                    <div class="num_value nv_5"></div>
+                    <div class="num_digit nd_5">5</div>
+                </div>
+                <div class="number_wrapper num_6">
+                    <div class="num_value nv_6"></div>
+                    <div class="num_digit nd_6">6</div>
+                </div>
+                <div class="number_wrapper num_7">
+                    <div class="num_value nv_7"></div>
+                    <div class="num_digit nd_7">7</div>
+                </div>
+                <div class="number_wrapper num_8">
+                    <div class="num_value nv_8"></div>
+                    <div class="num_digit nd_8">8</div>
+                </div>
+                <div class="number_wrapper num_9">
+                    <div class="num_value nv_9"></div>
+                    <div class="num_digit nd_9">9</div>
+                </div>
+            </div>
+            <button id="reset">Reset</button>
+        </div>
+        <div id="canvas" draggable="false"></div>
+    </div>
+    <script src="../static/index.js"></script>
+    <!-- <script src="{{url_for('static', filename='index.js')}}"></script> -->
 </body>
 
 </html>

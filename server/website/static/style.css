@@ -14,13 +14,109 @@ body {
   background-color: rgb(20, 20, 20);
   display: flex;
   flex-direction: column;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-gap: 2rem;
+}
+
+.interface {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   grid-gap: 1rem;
 }
 
+.graph {
+  height: 80%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.number_wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 4fr 1fr;
+  position: relative;
+}
+
+.num_value {
+  align-items: center;
+  position: relative;
+  margin: 1rem auto 0.5rem auto;
+  display: flex;
+  align-items: flex-end;
+}
+
+.num_value::before {
+  left: 50%;
+  transform: translate(-50%, 0);
+  content: "";
+  position: absolute;
+  background-color: rgb(15, 15, 15);
+  height: 100%;
+  width: 30px;
+  border-radius: 50px;
+}
+
+.num_value::after {
+  left: 50%;
+  transform: translate(-50%, 0);
+  content: "";
+  position: absolute;
+  background-image: linear-gradient(#e7228e, #4dcaec);
+  width: 30px;
+  border-radius: 50px;
+}
+
+.nv_0::after {
+  height: var(--value-0);
+}
+.nv_1::after {
+  height: var(--value-1);
+}
+.nv_2::after {
+  height: var(--value-2);
+}
+.nv_3::after {
+  height: var(--value-3);
+}
+.nv_4::after {
+  height: var(--value-4);
+}
+.nv_5::after {
+  height: var(--value-5);
+}
+.nv_6::after {
+  height: var(--value-6);
+}
+.nv_7::after {
+  height: var(--value-7);
+}
+.nv_8::after {
+  height: var(--value-8);
+}
+.nv_9::after {
+  height: var(--value-9);
+}
+
+.num_digit {
+  color: white;
+  font-family: "Fira Code";
+  font-size: 30px;
+  margin: auto;
+}
+
 #reset {
-  height: 2rem;
-  width: 4rem;
-  font-size: large;
+  height: 3rem;
+  width: 6rem;
+  font-size: 1.5rem;
   border-radius: 0.25rem;
   border: none;
   outline: none;
