@@ -1,6 +1,9 @@
 const canvas = document.getElementById("canvas")
 const resetBt = document.getElementById("reset")
 let pixels = document.querySelectorAll(".pixel")
+let isDrawing = false
+let pixelArray = []
+let socket;
 
 function makePixels() {
     let html = ""
@@ -12,22 +15,16 @@ function makePixels() {
     pixels = document.querySelectorAll(".pixel")
 }
 
-makePixels()
-
-document.addEventListener('dragstart', (e) => {
-    e.preventDefault()
-})
-
-let isDrawing = false
-
-canvas.onmousedown = e => { isDrawing = true }
-canvas.onmouseup = e => { isDrawing = false }
-canvas.onmousemove = e => { draw() }
+function connectSock() {
+    socket = new WebSocket(`ws${window.location.href.substring(window.location.href.indexOf('p') + 1)}`)
+    socket.onopen = s => {
+        console.log("Ready ✨")
+    }
+}
 
 function draw() {
     if (!isDrawing) return
     document.querySelector(".pixel:hover").style.backgroundColor = "white"
-    let pixelArray = []
     pixels.forEach((pixel, index) => {
         if (pixel.style.backgroundColor === "white") {
             pixelArray[index] = 1
@@ -35,7 +32,19 @@ function draw() {
             pixelArray[index] = 0
         }
     })
-    console.log(pixelArray)
+    socket.send(pixelArray)
 }
 
-resetBt.onclick = e => { pixels.forEach(pixel => { pixel.style.backgroundColor = "black" }) }
+function initFunctions() {
+    makePixels()
+    connectSock()
+    document.addEventListener('dragstart', (e) => {
+        e.preventDefault()
+    })
+    canvas.onmousedown = e => { isDrawing = true }
+    canvas.onmouseup = e => { isDrawing = false }
+    canvas.onmousemove = e => { draw() }
+    resetBt.onclick = e => { pixels.forEach(pixel => { pixel.style.backgroundColor = "black" }) }
+}
+
+initFunctions()
