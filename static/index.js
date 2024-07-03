@@ -24,9 +24,13 @@ function connectSock() {
     socket.onmessage = m => {
         try {
             let predictions = JSON.parse(m.data)
+            let minValue = Math.min(...predictions)
+            predictions.forEach((prediction, index) => {
+                predictions[index] += minValue;
+            })
             let maxValue = Math.max(...predictions)
             for (let i = 0; i < predictions.length; i++) {
-                let percentage = (predictions[i] / maxValue) * 100
+                let percentage = (maxValue / predictions[i]) * 100;
                 root.style.setProperty(`--value-${i}`, `${percentage}%`);
             }
         }
@@ -53,7 +57,7 @@ function draw() {
             pixelArray[index] = 0
         }
     })
-    if (Math.floor(Math.random() + Math.random())) { socket.send(pixelArray) }
+    if (Math.floor(Math.random() + Math.random())) { socket.send(JSON.stringify(pixelArray)) }
 }
 
 function initFunctions() {
