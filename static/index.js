@@ -30,7 +30,7 @@ function connectSock() {
             })
             let maxValue = Math.max(...predictions)
             for (let i = 0; i < predictions.length; i++) {
-                let percentage = (maxValue / predictions[i]) * 100;
+                let percentage = Math.pow(maxValue / predictions[i], 2) * 100;
                 root.style.setProperty(`--value-${i}`, `${percentage}%`);
             }
         }
